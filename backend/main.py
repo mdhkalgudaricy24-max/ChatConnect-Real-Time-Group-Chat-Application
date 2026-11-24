@@ -1,14 +1,16 @@
 import traceback
+from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+
+app = FastAPI()
 
 try:
-    from app_real import app
+    import app_real
+    app = app_real.app
 except Exception:
-    from fastapi import FastAPI
-    from fastapi.responses import PlainTextResponse
-
     err = traceback.format_exc()
-    app = FastAPI()
 
     @app.get("/{path:path}")
     def show_error(path: str):
         return PlainTextResponse(err[-3000:])
+        
