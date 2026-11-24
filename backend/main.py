@@ -22,7 +22,11 @@ import asyncio
 
 manager = models.ConnectionManager()
 app = FastAPI()
-models.Base.metadata.create_all(bind=engine)
+"""models.Base.metadata.create_all(bind=engine)"""
+try:
+    models.Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print("DB INIT ERROR:", type(e).__name__, str(e)[:300])
 
 app.add_middleware(
     CORSMiddleware,
