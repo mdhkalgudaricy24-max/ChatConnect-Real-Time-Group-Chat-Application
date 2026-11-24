@@ -421,4 +421,5 @@ async def decline_invite(db: db_dependency, invite_id: int, current_user: models
 
 
 FRONTEND_DIR = Path(__file__).resolve().parent / ".." / "frontend" / "dist"
-app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="static")
+if FRONTEND_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="static")
